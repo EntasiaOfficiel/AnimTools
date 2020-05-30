@@ -65,7 +65,7 @@ public class Basics implements Listener {
 						damager.sendMessage("§cVous êtes dans la même équipe !");
 					} else {
 						if (victim.p.getHealth() <= e.getFinalDamage()) {
-							if (damager != null) damager.sendMessage("§Tu as tué "+victim.p.getDisplayName()+" !");
+							if (damager != null) damager.sendMessage("§cTu as tué "+victim.p.getDisplayName()+" !");
 						}
 					}
 				}

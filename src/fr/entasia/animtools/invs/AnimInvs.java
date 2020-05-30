@@ -29,6 +29,7 @@ public class AnimInvs {
 					e.player.closeInventory();
 					break;
 				}
+				case IRON_SPADE:
 				case CHEST:
 				case STICK:{
 					e.player.setItemOnCursor(e.item.clone());
@@ -72,12 +73,18 @@ public class AnimInvs {
 		inv.setItem(22, item);
 		item.setItemMeta(meta);
 
+		item = new ItemStack(Material.IRON_SPADE);
+		meta = item.getItemMeta();
+		meta.setDisplayName("§3Boules de neige spécials");
+		item.setItemMeta(meta);
+		inv.setItem(23, item);
+		item.setItemMeta(meta);
 
 		item = new ItemStack(Material.CHEST);
 		meta = item.getItemMeta();
 		meta.setDisplayName("§6Inventaire");
 		item.setItemMeta(meta);
-		inv.setItem(23, item);
+		inv.setItem(24, item);
 		item.setItemMeta(meta);
 
 		p.openInventory(inv);
