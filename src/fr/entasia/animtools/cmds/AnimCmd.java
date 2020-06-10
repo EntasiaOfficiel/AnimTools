@@ -43,7 +43,7 @@ public class AnimCmd implements CommandExecutor {
 				if (arg.length == 2) {
 					if (arg[1].equalsIgnoreCase("off")) {
 						for (Player z : Bukkit.getOnlinePlayers()) {
-							if (z.getWorld().getName().equals("world")) {
+							if (z.getWorld()==Utils.animWorld) {
 								z.sendMessage("§7[§6AnimTools§7] §cLe chat a été désactivé !");
 							}
 						}
@@ -51,7 +51,7 @@ public class AnimCmd implements CommandExecutor {
 						p.sendMessage("§cLe chat a bien été désactivé");
 					} else if (arg[1].equalsIgnoreCase("on")) {
 						for (Player z : Bukkit.getOnlinePlayers()) {
-							if (z.getWorld().getName().equals("world")) {
+							if (z.getWorld()==Utils.animWorld) {
 								z.sendMessage("§7[§6AnimTools§7] §aLe chat a été activé !");
 							}
 						}
