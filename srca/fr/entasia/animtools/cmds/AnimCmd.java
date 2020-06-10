@@ -13,14 +13,12 @@ import org.bukkit.entity.Player;
 
 public class AnimCmd implements CommandExecutor {
 
-	public static boolean chatLock;
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] arg){
 		if(!(sender instanceof Player))return false;
 		if(sender.hasPermission("anim.animtools")){
 			Player p = (Player)sender;
-			if(arg.length==0) {
+			if(arg.length==0){
 				p.sendMessage("\n\n§c------------------\n");
 				p.sendMessage("§cMet un argument ! Arguments disponibles :");
 				p.sendMessage("§c- menu");
@@ -36,34 +34,6 @@ public class AnimCmd implements CommandExecutor {
 				p.sendMessage("");
 				p.sendMessage("§c- clear (supprime l'inventaire des joueurs)");
 				p.sendMessage("§c- delete [joueur] (supprime les données volatiles)");
-				p.sendMessage("");
-				p.sendMessage("§c- chat off/on");
-
-			}else if(arg[0].equalsIgnoreCase("chat")) {
-				if (arg.length == 2) {
-					if (arg[1].equalsIgnoreCase("off")) {
-						for (Player z : Bukkit.getOnlinePlayers()) {
-							if (z.getWorld().getName().equals("world")) {
-								z.sendMessage("§7[§6AnimTools§7] §cLe chat a été désactivé !");
-							}
-						}
-						chatLock = true;
-						p.sendMessage("§cLe chat a bien été désactivé");
-					} else if (arg[1].equalsIgnoreCase("on")) {
-						for (Player z : Bukkit.getOnlinePlayers()) {
-							if (z.getWorld().getName().equals("world")) {
-								z.sendMessage("§7[§6AnimTools§7] §aLe chat a été activé !");
-							}
-						}
-						chatLock = false;
-						p.sendMessage("§aLe chat a bien été activé");
-					} else {
-						p.sendMessage("§cVeuillez choisir entre on et off");
-					}
-				} else {
-					p.sendMessage("§cVeuillez choisir entre on et off");
-				}
-
 
 			}else if(arg[0].equalsIgnoreCase("menu")){
 				AnimInvs.animBaseOpen((Player)sender);

@@ -1,17 +1,19 @@
 package fr.entasia.animtools.listeners;
 
-import fr.entasia.animtools.cmds.AnimCmd;
+import com.destroystokyo.paper.event.entity.ProjectileCollideEvent;
 import fr.entasia.animtools.invs.AnimInvs;
 import fr.entasia.animtools.utils.Utils;
 import fr.entasia.apis.nbt.ItemNBT;
 import fr.entasia.apis.nbt.NBTComponent;
+import net.minecraft.server.v1_12_R1.Block;
+import net.minecraft.server.v1_12_R1.IEntitySelector;
+import net.minecraft.server.v1_12_R1.Item;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -102,18 +104,6 @@ public class Tools implements Listener {
 			if("Wi".equals(e.getEntity().getCustomName())) {
 				e.getHitBlock().setType(Material.AIR);
 				e.getHitBlock().getWorld().playSound(e.getHitBlock().getLocation(), Sound.BLOCK_SNOW_BREAK, 10, 2);
-			}
-		}
-	}
-
-	@EventHandler
-	public void chat(AsyncPlayerChatEvent e){
-		if(AnimCmd.chatLock) {
-			if (e.getPlayer().getWorld().getName().equals("world")) {
-				if (!e.getPlayer().hasPermission("anim.chat")) {
-					e.setCancelled(true);
-					e.getPlayer().sendMessage("§cLe chat a été désactivé !");
-				}
 			}
 		}
 	}
