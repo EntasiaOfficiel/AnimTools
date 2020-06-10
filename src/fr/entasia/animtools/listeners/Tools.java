@@ -109,7 +109,7 @@ public class Tools implements Listener {
 	@EventHandler
 	public void chat(AsyncPlayerChatEvent e){
 		if(AnimCmd.chatLock) {
-			if (e.getPlayer().getWorld().getName().equals("world")) {
+			if (e.getPlayer().getWorld()==Utils.animWorld) {
 				if (!e.getPlayer().hasPermission("anim.chat")) {
 					e.setCancelled(true);
 					e.getPlayer().sendMessage("§cLe chat a été désactivé !");
