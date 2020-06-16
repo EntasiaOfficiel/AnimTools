@@ -73,7 +73,7 @@ public class Basics implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onDamage(EntityDamageEvent e) {
 		if(e.getEntity().getWorld()== Utils.animWorld&&e.getEntity() instanceof LivingEntity){
 			if(EventFlags.ALL_DAMAGES.isEnabled()){
