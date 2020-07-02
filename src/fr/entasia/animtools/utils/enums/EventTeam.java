@@ -1,7 +1,7 @@
 package fr.entasia.animtools.utils.enums;
 
 import fr.entasia.animtools.utils.objs.SBManager;
-import fr.entasia.apis.TextUtils;
+import fr.entasia.apis.utils.TextUtils;
 
 public enum  EventTeam {
 	BLEU("§3"), VERT("§a"), ROUGE("§c"), JAUNE("§e");

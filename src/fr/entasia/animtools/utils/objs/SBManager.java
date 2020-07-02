@@ -3,7 +3,7 @@ package fr.entasia.animtools.utils.objs;
 import fr.entasia.animtools.utils.Utils;
 import fr.entasia.animtools.utils.enums.EventFlags;
 import fr.entasia.animtools.utils.enums.EventTeam;
-import fr.entasia.apis.TextUtils;
+import fr.entasia.apis.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -15,8 +15,8 @@ import java.util.Comparator;
 
 public class SBManager {
 
-	private static Comparator<EventTeam> teamComp = Comparator.comparingInt(EventTeam::getScore).reversed();
-	private static Comparator<EventPlayer> playerComp = Comparator.comparingInt(EventPlayer::getScore).reversed();
+	private static final Comparator<EventTeam> teamComp = Comparator.comparingInt(EventTeam::getScore).reversed();
+	private static final Comparator<EventPlayer> playerComp = Comparator.comparingInt(EventPlayer::getScore).reversed();
 
 	public EventPlayer ep;
 	public Scoreboard scoreboard;

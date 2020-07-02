@@ -2,7 +2,7 @@ package fr.entasia.animtools.utils.enums;
 
 import fr.entasia.animtools.Main;
 import fr.entasia.animtools.utils.SBTask;
-import fr.entasia.apis.ServerUtils;
+import fr.entasia.apis.utils.ServerUtils;
 
 public enum EventFlags {
 	ALL_DAMAGES, ENTITY_DAMAGES, PLAYER_DAMAGES, PVP_DAMAGES, FALL_DAMAGES,
