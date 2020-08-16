@@ -75,7 +75,7 @@ public class AnimInvs {
 
 		item = new ItemStack(Material.IRON_SPADE);
 		meta = item.getItemMeta();
-		meta.setDisplayName("§3Boules de neige spécials");
+		meta.setDisplayName("§3Boules de neige spéciales");
 		item.setItemMeta(meta);
 		inv.setItem(23, item);
 		item.setItemMeta(meta);

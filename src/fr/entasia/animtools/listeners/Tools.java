@@ -5,6 +5,8 @@ import fr.entasia.animtools.invs.AnimInvs;
 import fr.entasia.animtools.utils.Utils;
 import fr.entasia.apis.nbt.ItemNBT;
 import fr.entasia.apis.nbt.NBTComponent;
+import fr.entasia.apis.nbt.NBTTypes;
+import fr.entasia.apis.utils.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
@@ -31,7 +33,7 @@ public class Tools implements Listener {
 			ItemStack item = p.getInventory().getItemInMainHand();
 			if(item!=null && item.getType() == Material.CHEST && item.hasItemMeta() && item.getItemMeta().hasDisplayName()&&item.getItemMeta().getDisplayName().equals("§6Inventaire")){
 				NBTComponent nbt = ItemNBT.getNBT(p.getInventory().getItemInMainHand());
-				String id = nbt.getKeyString("invid");
+				String id = (String) nbt.getValue(NBTTypes.String, "invid");
 				if(id==null)return;
 				if(id.equals(""))p.sendMessage("§cTu n'as pas défini d'inventaire !");
 				else {
@@ -45,24 +47,27 @@ public class Tools implements Listener {
 
 	@EventHandler
 	public void onClick(PlayerInteractEvent e){
-		if(e.getPlayer().getWorld()== Utils.animWorld&&e.getHand()== EquipmentSlot.HAND&&e.getItem()!=null&&e.getItem().hasItemMeta()&&e.getItem().getItemMeta().hasDisplayName()) {
+		if(e.getPlayer().getWorld()== Utils.animWorld&&e.getHand()== EquipmentSlot.HAND&&e.getItem()!=null&& ItemUtils.hasName(e.getItem())) {
 			if(e.getAction()==Action.PHYSICAL)return;
 			if(e.getItem().getType() == Material.CHEST){ // items doubles
-				if ("§6Inventaire".equals(e.getItem().getItemMeta().getDisplayName())) {
+				if (e.getItem().getItemMeta().getDisplayName().equals("§6Inventaire")) {
 					if (e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_AIR) {
 						NBTComponent nbt = ItemNBT.getNBT(e.getItem());
-						String id = nbt.getKeyString("invid");
+						if(nbt==null)return;
+						String id = (String) nbt.getValue(NBTTypes.String,"invid");
 						if(id==null)return;
 						UUID uuid;
 						if (id.equals("")) {
 							uuid = UUID.randomUUID();
-							nbt.setKeyString("invid", uuid.toString());
+							nbt.setValue(NBTTypes.String, "invid", uuid.toString());
 							e.getPlayer().getInventory().setItemInMainHand(ItemNBT.setNBT(e.getItem(), nbt));
 						} else uuid = UUID.fromString(id);
 						AnimInvs.animInvManagerOpen(e.getPlayer(), uuid);
 					} else if (e.getAction() == Action.RIGHT_CLICK_BLOCK)
 						e.getPlayer().sendMessage("§cTu n'as cliqué sur personne !");
-				} else return;
+				} else if (e.getItem().getItemMeta().getDisplayName().equals("§3Boules de neige spéciales")) {
+					e.getPlayer().launchProjectile(Snowball.class, e.getPlayer().getLocation().getDirection().multiply(1.1)).setCustomName("Wi");
+				}else return;
 
 			}else if(e.getAction() == Action.LEFT_CLICK_AIR){  // que click droit
 				if (e.getItem().getType() == Material.STICK){
@@ -85,7 +90,7 @@ public class Tools implements Listener {
 					}
 				}else if (e.getItem().getType() == Material.IRON_SPADE) {
 					switch (e.getItem().getItemMeta().getDisplayName()) {
-						case "§3Boules de neige spécials": {
+						case "§3Boules de neige spéciales": {
 							e.getPlayer().launchProjectile(Snowball.class, e.getPlayer().getLocation().getDirection().multiply(1.1)).setCustomName("Wi");
 							break;
 						}
