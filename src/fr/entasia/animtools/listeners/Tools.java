@@ -88,13 +88,6 @@ public class Tools implements Listener {
 							return;
 						}
 					}
-				}else if (e.getItem().getType() == Material.IRON_SPADE) {
-					switch (e.getItem().getItemMeta().getDisplayName()) {
-						case "§3Boules de neige spéciales": {
-							e.getPlayer().launchProjectile(Snowball.class, e.getPlayer().getLocation().getDirection().multiply(1.1)).setCustomName("Wi");
-							break;
-						}
-					}
 				}else return;
 			}
 			e.setCancelled(true);
