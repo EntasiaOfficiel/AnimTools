@@ -26,7 +26,7 @@ public class SBManager {
 	public SBManager(EventPlayer ep){
 		this.ep = ep;
 		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		objective = scoreboard.registerNewObjective("hub", "dummy");
+		objective = scoreboard.registerNewObjective("hub", "dummy", "§eÉvenement");
 	}
 
 	public static void refreshPlayers(){
@@ -37,13 +37,13 @@ public class SBManager {
 		for(EventPlayer show_ep : values) {
 			if (show_ep.isEligible()) {
 				newScore = "§7" + show_ep.p.getDisplayName() + "§7 : " + show_ep.getScore();
-				for (EventPlayer ep : values) {
+				for (EventPlayer ep : values) { // apply this line for everyone
 					if(ep.isEligible()){
-						ep.sb.scoreboard.resetScores(show_ep.exScore);
+						ep.sb.scoreboard.resetScores(show_ep.sb.exScore);
 						ep.sb.objective.getScore(newScore).setScore(score);
 					}
 				}
-				show_ep.exScore = newScore;
+				show_ep.sb.exScore = newScore;
 				score--;
 				if (score == 40) break;
 			}
@@ -76,7 +76,6 @@ public class SBManager {
 	public void refresh(boolean scores){
 		ep.p.setScoreboard(scoreboard);
 		clear();
-		objective.setDisplayName("§eÉvenement");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		if(EventFlags.TEAMS.mode){
 			objective.getScore("§cÉquipes").setScore(50);

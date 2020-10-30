@@ -11,7 +11,6 @@ public class EventPlayer {
 	public EventTeam team;
 	public SBManager sb;
 	private int score;
-	public String exScore="";
 
 	public EventPlayer(Player p){
 		this.p = p;

@@ -1,6 +1,8 @@
 name: AnimTools
 depend: [Libraries, Multiverse-Core]
-version: 1.0
+author: iTrooz_, Narcos
+api-version: '1.15'
+version: '-1'
 main: fr.entasia.animtools.Main
 commands:
   anim:

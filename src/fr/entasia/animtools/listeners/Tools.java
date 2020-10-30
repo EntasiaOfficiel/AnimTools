@@ -31,7 +31,7 @@ public class Tools implements Listener {
 			Player p = e.getPlayer();
 			Player target = (Player) e.getRightClicked();
 			ItemStack item = p.getInventory().getItemInMainHand();
-			if(item!=null && item.getType() == Material.CHEST && item.hasItemMeta() && item.getItemMeta().hasDisplayName()&&item.getItemMeta().getDisplayName().equals("§6Inventaire")){
+			if(item.getType() == Material.CHEST && ItemUtils.hasName(item, "§6Inventaire")){
 				NBTComponent nbt = ItemNBT.getNBT(p.getInventory().getItemInMainHand());
 				String id = (String) nbt.getValue(NBTTypes.String, "invid");
 				if(id==null)return;

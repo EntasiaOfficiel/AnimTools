@@ -15,12 +15,12 @@ import java.util.UUID;
 
 public class AnimInvs {
 
-	public static MenuCreator animBase = new MenuCreator(null, null) {
+	public static MenuCreator animBase = new MenuCreator() {
 
 		@Override
 		public void onMenuClick(MenuClickEvent e) {
 			switch(e.item.getType()){
-				case WOOD_DOOR:{
+				case OAK_DOOR:{
 					e.player.teleport(Utils.eventSpawn);
 					break;
 				}
@@ -29,7 +29,7 @@ public class AnimInvs {
 					e.player.closeInventory();
 					break;
 				}
-				case IRON_SPADE:
+				case IRON_SHOVEL:
 				case CHEST:
 				case STICK:{
 					e.player.setItemOnCursor(e.item.clone());
@@ -43,7 +43,7 @@ public class AnimInvs {
 		Inventory inv = animBase.createInv(3, "§7Outils :");
 
 
-		ItemStack item = new ItemStack(Material.WOOD_DOOR);
+		ItemStack item = new ItemStack(Material.OAK_DOOR);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§7Se téléporter à la zone event");
 		item.setItemMeta(meta);
@@ -55,7 +55,7 @@ public class AnimInvs {
 		item.setItemMeta(meta);
 		inv.setItem(2, item);
 
-		item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)12);
+		item = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
 		for(int i=9;i<18;i++)inv.setItem(i, item);
 
 		item = new ItemStack(Material.STICK);
@@ -73,7 +73,7 @@ public class AnimInvs {
 		inv.setItem(22, item);
 		item.setItemMeta(meta);
 
-		item = new ItemStack(Material.IRON_SPADE);
+		item = new ItemStack(Material.IRON_SHOVEL);
 		meta = item.getItemMeta();
 		meta.setDisplayName("§3Boules de neige spéciales");
 		item.setItemMeta(meta);
@@ -98,7 +98,7 @@ public class AnimInvs {
 
 
 
-	public static MenuCreator animInvManager = new MenuCreator(new MenuFlag[] {MenuFlag.NoReturnUnlockedItems}, slots) {
+	public static MenuCreator animInvManager = new MenuCreator() {
 
 		@Override
 		public void onMenuClose(MenuCloseEvent e) {
@@ -124,7 +124,7 @@ public class AnimInvs {
 
 			Utils.invs.put((UUID)e.data, inv);
 		}
-	};
+	}.setFlags(MenuFlag.NoReturnUnlockedItems).setFreeSlots(slots);
 
 	public static void animInvManagerOpen(Player p, UUID uuid) {
 
