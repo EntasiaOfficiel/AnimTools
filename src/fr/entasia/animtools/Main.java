@@ -52,9 +52,9 @@ public class Main extends JavaPlugin {
 
 			new SBTask().runTaskTimerAsynchronously(this, 0, 20*60*2);
 
-		}catch(Exception e){
+		}catch(Throwable e){
 			e.printStackTrace();
-			System.out.println("LE SERVEUR VA S'ETEINDRE !");
+			getLogger().severe("LE SERVEUR VA S'ETEINDRE !");
 			Bukkit.getServer().shutdown();
 		}
 	}
