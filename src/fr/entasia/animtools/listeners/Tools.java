@@ -49,13 +49,13 @@ public class Tools implements Listener {
 	public void onClick(PlayerInteractEvent e){
 		if(e.getPlayer().getWorld()== Utils.animWorld&&e.getHand()== EquipmentSlot.HAND&&e.getItem()!=null&& ItemUtils.hasName(e.getItem())) {
 			if(e.getAction()==Action.PHYSICAL)return;
-			if(e.getItem().getType() == Material.CHEST){ // items doubles
-				if (e.getItem().getItemMeta().getDisplayName().equals("§6Inventaire")) {
+			if(e.getItem().getType() == Material.CHEST) { // items doubles
+				if (ItemUtils.hasName(e.getItem(), "§6Inventaire")) {
 					if (e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_AIR) {
 						NBTComponent nbt = ItemNBT.getNBT(e.getItem());
-						if(nbt==null)return;
-						String id = (String) nbt.getValue(NBTTypes.String,"invid");
-						if(id==null)return;
+						if (nbt == null) return;
+						String id = (String) nbt.getValue(NBTTypes.String, "invid");
+						if (id == null) return;
 						UUID uuid;
 						if (id.equals("")) {
 							uuid = UUID.randomUUID();
@@ -65,30 +65,28 @@ public class Tools implements Listener {
 						AnimInvs.animInvManagerOpen(e.getPlayer(), uuid);
 					} else if (e.getAction() == Action.RIGHT_CLICK_BLOCK)
 						e.getPlayer().sendMessage("§cTu n'as cliqué sur personne !");
-				} else if (e.getItem().getItemMeta().getDisplayName().equals("§3Boules de neige spéciales")) {
-					e.getPlayer().launchProjectile(Snowball.class, e.getPlayer().getLocation().getDirection().multiply(1.1)).setCustomName("Wi");
-				}else return;
 
-			}else if(e.getAction() == Action.LEFT_CLICK_AIR){  // que click droit
-				if (e.getItem().getType() == Material.STICK){
-					switch(e.getItem().getItemMeta().getDisplayName()) {
-						case "§fBoules de neige":{
-							e.getPlayer().launchProjectile(Snowball.class, e.getPlayer().getLocation().getDirection().multiply(1.1));
-							break;
-						}
-						case "§7Flèches": {
-							e.getPlayer().launchProjectile(Arrow.class, e.getPlayer().getLocation().getDirection().multiply(1.4));
-							break;
-						}
-						case "§cBoules de feu":{
-							e.getPlayer().launchProjectile(SmallFireball.class, e.getPlayer().getLocation().getDirection());
-							break;
-						}
-						default:{
-							return;
-						}
-					}
 				}else return;
+			}else if (ItemUtils.hasName(e.getItem(), "§3Spleef 2000")) {
+				e.getPlayer().launchProjectile(Snowball.class, e.getPlayer().getLocation().getDirection().multiply(1.1)).setCustomName("Spleef");
+			}else if (e.getItem().getType() == Material.STICK) {
+				switch (e.getItem().getItemMeta().getDisplayName()) {
+					case "§fBoules de neige": {
+						e.getPlayer().launchProjectile(Snowball.class, e.getPlayer().getLocation().getDirection().multiply(1.1));
+						break;
+					}
+					case "§7Flèches": {
+						e.getPlayer().launchProjectile(Arrow.class, e.getPlayer().getLocation().getDirection().multiply(1.4));
+						break;
+					}
+					case "§cBoules de feu": {
+						e.getPlayer().launchProjectile(SmallFireball.class, e.getPlayer().getLocation().getDirection());
+						break;
+					}
+					default: {
+						return;
+					}
+				}
 			}
 			e.setCancelled(true);
 		}
@@ -97,7 +95,7 @@ public class Tools implements Listener {
 	@EventHandler
 	public void projectile(ProjectileHitEvent e){
 		if(e.getHitBlock() != null&& e.getHitBlock().getType() == Material.SNOW_BLOCK) {
-			if("Wi".equals(e.getEntity().getCustomName())) {
+			if("Spleef".equals(e.getEntity().getCustomName())) {
 				e.getHitBlock().setType(Material.AIR);
 				e.getHitBlock().getWorld().playSound(e.getHitBlock().getLocation(), Sound.BLOCK_SNOW_BREAK, 10, 2);
 			}

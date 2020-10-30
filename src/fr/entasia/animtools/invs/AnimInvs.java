@@ -75,7 +75,7 @@ public class AnimInvs {
 
 		item = new ItemStack(Material.IRON_SHOVEL);
 		meta = item.getItemMeta();
-		meta.setDisplayName("§3Boules de neige spéciales");
+		meta.setDisplayName("§3Spleef 2000");
 		item.setItemMeta(meta);
 		inv.setItem(23, item);
 		item.setItemMeta(meta);
@@ -95,7 +95,6 @@ public class AnimInvs {
 	static{
 		for(int i=0;i<41;i++)slots[i] = i;
 	}
-
 
 
 	public static MenuCreator animInvManager = new MenuCreator() {
