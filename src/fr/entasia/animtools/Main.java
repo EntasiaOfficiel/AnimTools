@@ -45,6 +45,7 @@ public class Main extends JavaPlugin {
 			saveConfig();
 
 			getCommand("anim").setExecutor(new AnimCmd());
+			getCommand("anim").setTabCompleter(new AnimCmd());
 			getCommand("menuanim").setExecutor(new AnimMenuCmd());
 
 			getServer().getPluginManager().registerEvents(new Tools(), this);

@@ -9,9 +9,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class AnimCmd implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class AnimCmd implements CommandExecutor, TabCompleter {
 
 	public static boolean chatLock;
 
@@ -137,9 +141,15 @@ public class AnimCmd implements CommandExecutor {
 				if(arg.length==1){
 					p.sendMessage("§cFlags :");
 					for (EventFlags f : EventFlags.values()) p.sendMessage("§c- " + f.name()+" : "+f.isEnabled());
-				}else if(arg.length==3){
+				}else if(arg.length==2||arg.length==3){
+					EventFlags flag;
 					try {
-						EventFlags flag = EventFlags.valueOf(arg[1].toUpperCase());
+						flag = EventFlags.valueOf(arg[1].toUpperCase());
+					} catch (IllegalArgumentException e) {
+						p.sendMessage("§cFlag " + arg[1] + " invalide !");
+						return true;
+					}
+					if(arg.length==3){
 						arg[2] = arg[2].toLowerCase();
 						if (arg[2].equals("true")) flag.setMode(true);
 						else if (arg[2].equals("false")) flag.setMode(false);
@@ -147,10 +157,10 @@ public class AnimCmd implements CommandExecutor {
 							p.sendMessage("§cValeur " + arg[2] + " invalide ! Met true/false");
 							return true;
 						}
-						p.sendMessage("§aSuccès !");
-					} catch (IllegalArgumentException e) {
-						p.sendMessage("§cFlag " + arg[1] + " invalide !");
+					}else{
+						p.sendMessage("§6Valeur du flag "+flag+" : §e"+flag.mode);
 					}
+					p.sendMessage("§aSuccès !");
 				}else p.sendMessage("§cSyntaxe invalide !");
 
 			}else if(arg[0].equalsIgnoreCase("points")||arg[0].equalsIgnoreCase("point")){
@@ -194,5 +204,22 @@ public class AnimCmd implements CommandExecutor {
 			}else p.sendMessage("§cArgument invalide !");
 		}else sender.sendMessage("§cTu n'as pas accès à cette commande !");
 		return true;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
+		if(args.length==2){
+			if(args[0].equals("flag")||args[0].equals("flags")){
+				ArrayList<String> list = new ArrayList();
+				args[1] = args[1].toUpperCase();
+				for(EventFlags flag : EventFlags.values()){
+					if(flag.name().contains(args[1])){
+						list.add(flag.name());
+					}
+				}
+				return list;
+			}
+		}
+		return null;
 	}
 }
